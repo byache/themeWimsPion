@@ -6,4 +6,6 @@ Dans une installation de Wims, aller dans public_html/themes
 
 Ouvrir un terminal dans ce dossier et cloner le thème grâce à la commande :
 
+```
 git clone https://github.com/byache/themeWimsPion.git
+```
