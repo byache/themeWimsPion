@@ -1,4 +1,4 @@
-<!-- begin of standard/docheader.phtml -->
+<!-- begin of Nikaia/docheader.phtml -->
 
 !! document menu
 !nocache
@@ -12,36 +12,42 @@
 !endif
 
 !if $job iswordof read print
-  <div id="wimsdoc"
-  !!if $wims_user=supervisor or $wims_developer!=$empty
-    class="editor_mode"
-  !!endif
->
+  <div id="wimsdoc">
 !endif
 
-!if $wims_lightpopup!=yes
-  <div id="wimstopbox">
-    !distribute items span into div1
-    !if $doc!=$helpd
-      <div class="wimsmenu menu float_left">
-        !read themes/_widgets/headhome.phtml
-      </div>
+<div id="wimstopbox">
+  !if $wims_lightpopup!=yes
+    !!Site Title
+    !read themes/_widgets/site_title.phtml
+
+    !if $wims_lightpopup!=yes
+      !!Institution logo
+      !set positionlogo=right
+      !read themes/_widgets/institution_logo.phtml
+      <br class="clearall">
     !endif
-    !read themes/_widgets/docheadermenu.phtml
+  !endif
+  !! <div class="text-right">
+  !!   !read themes/_widgets/docheadermenu.phtml
+  !! </div>
+
+  <div class="menuglobal text-right with_doc_nav">
+    !if $wims_lightpopup!=yes
+      !read themes/_widgets/user_links.phtml
+    !endif
+    !read themes/_widgets/docnavigation.phtml
   </div>
-!endif
+  !if $wims_lightpopup!=yes
+    !read themes/_widgets/ariane.phtml
+  !endif
+</div><!--end of wimstopbox  -->
 
 !if $wims_lightpopup=yes
   <div id="wimslightpopup">
-!else
-  !read themes/_widgets/ariane.phtml
 !endif
-
 <div id="wimsbodybox">
   <div id="wimspagebox">
+    !read themes/_widgets/docsidemenu.phtml
+    !read themes/_widgets/alertchat.phtml
 
-!read themes/_widgets/docnavigation.phtml
-!read themes/_widgets/docsidemenu.phtml
-!read themes/_widgets/alertchat.phtml
-
-<!-- end of docheader.phtml -->
+<!-- end of Nikaia/docheader.phtml -->

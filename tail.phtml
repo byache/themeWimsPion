@@ -1,4 +1,4 @@
-<!-- begin of $wims_theme/tail.phtml -->
+<!-- begin of Nikaia/tail -->
 !! Tail menu theme.
 !nocache
 !set wims_theme_tail=yes
@@ -12,36 +12,35 @@
 !if $slib_geogebra_exists=yes
   !read themes/_widgets/tailgeogebra.phtml
 !endif
-!if $wims_homeref_special!=$empty
-!!    </div><!--end of wimspagebox -->
-  !!!if _exam isin $wims_session
-    !!<div class="wimsmenu">
-    !!<div class="tailitem">$wims_homeref_special</div>
-    !!</div>
-  !!!endif
-  </div><!--wimsbodybox-->
 
+!! Menu specifique au module actuel
+!if $module != adm/class/classes
+  !! affiche le menu si le module n'est pas la zone enseignant
+  !distribute items ul,li into div0,div1
+  !read themes/_widgets/menumodubox.phtml
+!endif
+
+!if $wims_homeref_special!=$empty
+      <ul class="wimsmenu">
+        <li class="tailitem">$wims_homeref_special</li>
+      </ul><!--wimsmenu-->
+    </div><!--wimsbodybox-->
   </div><!--id wimsexam-->
 !else
-
-  !distribute items div,div into div0,div1
-  !read themes/_widgets/menumodubox.phtml
+  <!-- MENU BAS DE PAGE -->
+  !distribute items ul,li into div0,div1
+  !read themes/_widgets/menubox.phtml
   !reset div0 div1
+  </div>
+  <!-- FIN WIMSBODYBOX -->
 
-  !distribute items div,span into div0,div1
-  !!read themes/_widgets/menubox.phtml
-  !reset div0 div1
-
-  </div><!--wimsbodybox-->
-
-  !!read themes/_widgets/about.phtml
-
-  <!--ENDSUPVIEW-->
-  <!--FIN BAS DE PAGE-->
+  <!--A propos-->
+  !read themes/_widgets/about.phtml
 
   !if help isin $wims_session
     </div><!--wims_mhelp-->
   !endif
+
   !if $wims_lightpopup=yes
     </div> <!--wimslightpopup-->
   !endif
@@ -49,5 +48,4 @@
 
 !read themes/_widgets/session_warn.phtml
 !read themes/_widgets/footer_foundation.phtml
-
-<!-- end of $wims_theme/tail.phtml -->
+<!-- end of Nikaia/tail -->

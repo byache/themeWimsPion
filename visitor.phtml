@@ -1,79 +1,63 @@
-<!-- begin of standard/visitor.phtml -->
+<!-- Begin of Nikaia/visitor.phtml -->
 !! WIMS main entrance page theme.
 !nocache
 !if $module!=home
-  !exit
+ !exit
 !endif
+
+!! yet useful ??
+!!set wims_name_browse=$N_browse2
 
 !set home_theme=yes
 !set table_colors=$wims_ref_bgcolor,$wims_ref_bgcolor
 </div>
+
 <div id="wimsfrontpage">
-
-  <div id="wimstopbox">
-!set positionlogo=left
-!read themes/_widgets/institution_logo.phtml
-
-!! maybe not useful if already called in header.phtml ?
-!read themes/_widgets/user_links.phtml
-
-    <div class="wimsmenu menu">
-!!read themes/_widgets/virtualzone.phtml
-!read themes/_widgets/authlogout.phtml
-!read themes/_widgets/manager.phtml
-    </div><!--wimsmenu-->
-  </div>
-!read themes/_widgets/ariane.phtml
-
   <div id="wimsbodybox">
-    <div id="wimspagebox">
+    <main id="wimspagebox">
+
       <div class="wimsbody">
-!read themes/_widgets/site_title.phtml
-!read ./form.phtml
-<br class="clearall">
-!if $s_category=V
-  !read ./front.phtml
-!else
-  !read ./result.phtml
-!endif
+
+        !read themes/_widgets/manager.phtml
+
+        <!--Contenu de la page d'accueil-->
+        <div class="wims_columns">
+          <!--Recherche exercices-->
+          !read themes/$wims_theme/widgets/search_engine.phtml
+          <!--Recherche classes-->
+          !read themes/$wims_theme/widgets/search_classe.phtml
+        </div>
+
+        !!<!--Recherche avancée exercices-->
+        !!read themes/$wims_theme/lang/home.phtml.fr
+
+        !if $s_category=V
+         <!--Exemples de contenus-->
+         !read ./front.phtml
+        !else
+         <!--Résultats recherche exercices-->
+         !read ./result.phtml
+        !endif
+
       </div><!--end wimsbody-->
-    </div><!--wimspagebox-->
-!distribute items div,div into div0,div1
+    </main><!--wimspagebox-->
 
-!! Sets all links to be displayed in menumodubox
-!read themes/_procs/homemenu.proc
+    !set wims_show_stat=!tolower $wims_show_stat
 
-!set wims_rm_0 = $wims_rm_0\
- itemsep,0,$V_cls
-!read themes/_procs/virtualzone.proc
-
-!set wims_rm_0 = $wims_rm_0\
-itemsep,0,$CR_Docs
-!read themes/_procs/documentation.proc
-
-!set wims_rm_0 = $wims_rm_0\
-itemsep,0,$CR_1
-!read themes/_procs/devtools.proc
-
-!set wims_rm_0 = $wims_rm_0\
-itemsep,0,$wims_name_Site
-!read themes/_procs/browsesite.proc
-!read themes/_procs/site.proc
-
-!set wims_homeref_n0 = !linecnt $wims_rm_0
-
-!read themes/_widgets/menumodubox_accordion.phtml
-
-!distribute items div,span into div0,div1
-!read themes/_widgets/visitormenubox.phtml
-!reset div0 div1
   </div><!--wimsbodybox-->
 
-!read themes/_widgets/tailbox.phtml
-</div><!--wimsfrontpage-->
+  !! User opts
+  !set wims_tail_home = !append line pref,1,module=adm/light&phtml=useropts.phtml.$lang to $wims_tail_home
+  !increase $wims_tail_home_n0
 
-!read themes/_widgets/footer_foundation.phtml
+  !distribute items ul,li into div0,div1
+  !read themes/_widgets/visitormenubox.phtml
+  !reset div0 div1
+  !read themes/_widgets/tailbox.phtml
 
-</body>
+ </div><!--wimsfrontpage-->
+
+ !read themes/_widgets/footer_foundation.phtml
+ </body>
 </html>
-<!-- end of standard/visitor.phtml -->
+<!-- end of Nikaia/visitor.phtml -->
